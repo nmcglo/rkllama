@@ -807,7 +807,6 @@ class Worker:
         self.task_q = Queue()
         self.result_q = Queue()
 
-
     def create_worker_process(self, base_domain_id, model_path, model_dir, options=None, lora_model_path = None, prompt_cache_path = None) -> bool:
         """
         Creates the process of the worker
@@ -820,7 +819,7 @@ class Worker:
         self.process.start() 
 
         # Wait to confirm initialization
-        creation_status = self.result_q.get(timeout=60)  # Timeout after 60 seconds
+        creation_status = self.result_q.get(timeout=rkllama.config.get("server", "worker_init_timeout"))
 
         if creation_status == WORKER_TASK_ERROR:
             # Error loading the RKLLM Model. Wait for the worker to exit

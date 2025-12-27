@@ -244,6 +244,7 @@ def create_rkllama_schema() -> ConfigSchema:
     server.integer("port", 8080, "Server port number", min_value=1, max_value=65535)
     server.string("host", "0.0.0.0", "Server host address")
     server.boolean("debug", False, "Enable debug mode")
+    server.integer("worker_init_timeout", 300, "Seconds to timeout on worker init")
     
     # Paths section
     paths = schema.add_section("paths", description="Path configuration")
